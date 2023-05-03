@@ -5,15 +5,15 @@
  * License MIT
  */
 
-var constants = require('constants');
+var constants = require('./polyfillHandler.js').constants;
 var rsa = require('./libs/rsa.js');
-var crypt = require('crypto');
+var crypt = require('./polyfillHandler.js').crypto;
 var ber = require('asn1').Ber;
 var _ = require('./utils')._;
 var utils = require('./utils');
 var schemes = require('./schemes/schemes.js');
 var formats = require('./formats/formats.js');
-var { Buffer } = require('buffer')
+var { Buffer } = require('./polyfillHandler.js').buffer;
 
 if (typeof constants.RSA_NO_PADDING === "undefined") {
     //patch for node v0.10.x, constants do not defined
@@ -184,9 +184,9 @@ module.exports = (function () {
         if (!formats.detectAndImport(this.keyPair, keyData, format) && format === undefined) {
             throw Error("Key format must be specified");
         }
-        
+
         this.$cache = {};
-        
+
         return this;
     };
 
